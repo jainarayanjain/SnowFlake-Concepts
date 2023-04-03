@@ -1,0 +1,25 @@
+-- Copy Data from local file to snowflake table
+
+CREATE STAGE my_csv_stage
+CREATE OR REPLACE FILE FORMAT my_csv_format
+  TYPE = CSV
+  FIELD_DELIMITER = ','
+  SKIP_HEADER = 1
+  NULL_IF = ('NULL', 'null')
+  EMPTY_FIELD_AS_NULL = true
+  COMPRESSION = gzip;
+
+put file://C:/Users/jai.jain.ACS/Downloads/File.csv @my_csv_stage; 
+-- run in snowsql cli  
+
+CREATE TABLE STUDENT
+( NAME VARCHAR(200),
+  ID INT
+)
+
+COPY INTO "HELLO".PUBLIC.STUDENT FROM @my_csv_stage
+FILE_FORMAT = "HELLO".PUBLIC.MY_CSV_FORMAT
+
+
+
+Select * from Student
