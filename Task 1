@@ -1,3 +1,6 @@
+--How to identify accountname:-
+https://youtu.be/WkKu006WgIc
+
 -- Copy Data from local file to snowflake table
 
 CREATE STAGE my_csv_stage
