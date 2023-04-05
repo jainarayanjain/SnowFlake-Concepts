@@ -1,0 +1,20 @@
+-- Create AWS Trial Accoun
+-- Create S3 bucket
+-- Create a folder and upload one file into it
+-- Generate a AWS Access Key (you can create access of either root user or iam user )
+-- In case of IAM user you have to give access of S3 bucket to that user
+
+CREATE OR REPLACE STAGE externalstage
+  URL='s3://demoddd/DataStorage/'
+  CREDENTIALS=(AWS_KEY_ID='dsfdf' AWS_SECRET_KEY='sdfdf')
+
+
+COPY INTO STUDENT from @externalstage file_format =(type = csv field_delimiter=',',skip_header=1)
+
+list @externalstage
+desc stage my_ext_stage2
+
+-- For displaying one column from external stage
+select t.$1 from @externalstage t
+
+-- we cannot place file in external stage from snowflake
